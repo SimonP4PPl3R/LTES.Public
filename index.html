@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LT EventSolutions</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: white;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    background: rgba(0,0,0,0.8);
+    border-bottom: 1px solid rgba(255, 106, 0, 0.2);
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    position: relative;
+    cursor: pointer;
+}
+
+.header-btn {
+    padding: 8px 16px;
+    border: 1px solid #ff6a00;
+    border-radius: 6px;
+    color: #ff6a00;
+    transition: all 0.3s ease;
+}
+
+.header-btn:hover {
+    background: #ff6a00;
+    color: black;
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 106, 0, 0.3);
+    border-radius: 6px;
+    min-width: 250px;
+    margin-top: 10px;
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 106, 0, 0.2);
+}
+
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 106, 0, 0.1);
+    color: #ff6a00;
+}
+
+.nav-item {
+    position: relative;
+}
+
+/* HERO */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(255, 140, 0, 0.22) 0%, rgba(255, 110, 0, 0.14) 30%, rgba(13, 13, 13, 0.92) 100%),
+                radial-gradient(circle at top center, rgba(255, 121, 0, 0.14), transparent 35%),
+                radial-gradient(circle at 30% 70%, rgba(255, 110, 0, 0.10), transparent 40%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content img {
+    width: 760px;
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto 16px;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(255, 106, 0, 0.4));
+    transform: scaleX(1.08) scaleY(0.96);
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 14px 0 12px;
+    font-weight: 900;
+}
+
+.hero p {
+    color: #ccc;
+    margin: 0 0 14px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* FEATURES */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 20px 0;
+    text-align: center;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.feature-box {
+    background: #111;
+    padding: 14px;
+    border-radius: 10px;
+    width: 200px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 0.8px solid rgba(255, 106, 0, 0.25);
+    box-shadow: 0 0 8px rgba(255, 106, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.feature-box:hover {
+    border-color: rgba(255, 106, 0, 0.45);
+    box-shadow: 0 0 18px rgba(255, 106, 0, 0.16);
+}
+
+.feature-box h3 {
+    margin: 0 0 10px;
+    color: #ff6a00;
+}
+
+.feature-box p {
+    margin: 0;
+    color: #aaa;
+}
+
+/* SECTION 2 */
+.section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.section h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.section p {
+    color: #bbb;
+    margin: 0;
+}
+
+/* FOOTER */
+footer {
+    padding: 28px 24px 36px;
+    text-align: center;
+    color: #9d9d9d;
+    background: #090909;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer p {
+    margin: 0 0 12px;
+}
+
+footer a {
+    color: #d8d8d8;
+    margin: 0 14px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 900px) {
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-left, .nav-right {
+        gap: 15px;
+    }
+
+    .hero {
+        min-height: 60vh;
+        padding: 20px;
+    }
+
+    .hero-content img {
+        width: 180px;
+        margin-bottom: 20px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .features {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .feature-box {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .section {
+        padding: 30px 15px;
+    }
+
+    .section h2 {
+        font-size: 24px;
+    }
+
+    .dropdown-menu {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero-content img {
+        width: 150px;
+    }
+
+    header a {
+        font-size: 13px;
+    }
+
+    .header-btn {
+        padding: 6px 12px;
+    }
+
+    .features {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .feature-box {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav-left">
+        <div class="nav-item">
+            <a href="#" onclick="togglePADropdown(); return false;">PA-Anlagen ▼</a>
+            <div id="pa-dropdown" class="dropdown-menu">
+                <a href="#" onclick="showPASystem('large'); return false;">High-End PA-Anlage für große Events</a>
+                <a href="#" onclick="showPASystem('small'); return false;">PA-Anlage für mittlere Events</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            <a href="#" onclick="document.getElementById('preise-dropdown').style.display = document.getElementById('preise-dropdown').style.display === 'none' ? 'block' : 'none'; return false;">Preise ▼</a>
+            <div id="preise-dropdown" class="dropdown-menu">
+                <div style="color:#ff6a00; padding:12px 16px; border-bottom:1px solid rgba(255, 106, 0, 0.2); font-weight:bold;">Große Events</div>
+                <div style="color:#999; padding:8px 16px; font-size:14px; border-bottom:1px solid rgba(255, 106, 0, 0.2);">Tagesmiete: 350€ | Weekend: 600€</div>
+                <div style="color:#ff6a00; padding:12px 16px; border-bottom:1px solid rgba(255, 106, 0, 0.2); font-weight:bold;">Mittlere Events</div>
+                <div style="color:#999; padding:8px 16px; font-size:14px;">Tagesmiete: ab 175€ | Weekend: 250€</div>
+            </div>
+        </div>
+        <a href="kontakt.html">Kontakt</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="kontakt.html" class="header-btn">Jetzt Anfragen</a>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <!-- LOGO -->
+        <img src="images/logo.webp" alt="LT EventSolutions Logo">
+
+        <h1>High-End PA-Verleih aus Regensburg</h1>
+
+        <p>
+            Druckvoller Sound für Events bis zu 500+ Personen.<br>
+            Ideal für Festivals, Partys, Clubs & Open-Airs.
+        </p>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="feature-box">
+        <h3>🔊 Extrem starke Soundanlage</h3>
+        <p>Bis 500+ Personen – 18.000 Watt RMS</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>📦 Komplettes Set</h3>
+        <p>Inkl. Aufbau, Abbau, Licht & Beratung</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>🚚 Flexibler Service</h3>
+        <p>Lieferung im Umkreis von 100 km</p>
+    </div>
+</section>
+
+<!-- SECTION 2 -->
+<section class="section" id="large-system" style="display: none;">
+    <h2>High-End PA-Anlage für große Events</h2>
+    <p>Unser System für Festivals, Open-Airs und Club-Events mit hoher Besucherzahl.</p>
+    <div class="content-box" style="text-align: left; max-width: 800px; margin: 30px auto;">
+        <ul style="color: #ccc; line-height: 1.8;">
+            <li>2× HK VT 212 Nachbauten, 800W RMS pro Stück</li>
+            <li>2× Doppel-21" Paraflex Subwoofer, 4000W RMS pro Stück</li>
+            <li>4× 18" Hornbässe von Turbosound, 1500W RMS pro Stück</li>
+            <li>2× 18" Hornbässe für Kickbereich, 1000W RMS pro Stück</li>
+            <li>Professionelles Amping mit DSP</li>
+            <li>Modular erweiterbar für noch größere Events</li>
+            <li>Anschluss über DJ-Equipment / Mischpult oder Bluetooth</li>
+            <li>Auf- und Abbau inklusive</li>
+        </ul>
+        <p style="margin-top: 30px; color: #ff6a00; font-weight: bold;">Tagesmiete: 350€ | Wochenende: 600€</p>
+    </div>
+</section>
+
+<section class="section" id="small-system" style="display: none;">
+    <h2>PA-Anlage für mittlere Events</h2>
+    <p>Perfekt für Partys, Hochzeiten, Vereinsfeste und kleinere Open-Airs.</p>
+    <div class="content-box" style="text-align: left; max-width: 800px; margin: 30px auto;">
+        <ul style="color: #ccc; line-height: 1.8;">
+            <li>2× Electrovoice SX300 (je 300W RMS)</li>
+            <li>2-4× Turbosound TSE 118 (je 1500W RMS)</li>
+            <li>2× höhenverstellbare Stative für Topteile</li>
+            <li>Rack mit Amping</li>
+            <li>Anschluss über DJ-/Mischpult oder Bluetooth</li>
+            <li>Auf- und Abbau inklusive</li>
+            <li>Optional: kleine oder große Traverse</li>
+            <li>Optional: Kombination mit Lichtsets</li>
+        </ul>
+        <p style="margin-top: 30px; color: #ff6a00; font-weight: bold;">Tagesmiete: ab 175€ | Wochenende: 250€</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 LT Event Solutions</p>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+</footer>
+
+
+<script>
+function togglePADropdown() {
+    const dropdown = document.getElementById('pa-dropdown');
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+}
+
+function showPASystem(type) {
+    // Verstecke beide Systeme
+    document.getElementById('large-system').style.display = 'none';
+    document.getElementById('small-system').style.display = 'none';
+    
+    // Zeige das gewählte System
+    if (type === 'large') {
+        document.getElementById('large-system').style.display = 'block';
+    } else if (type === 'small') {
+        document.getElementById('small-system').style.display = 'block';
+    }
+    
+    // Verstecke Dropdown
+    document.getElementById('pa-dropdown').style.display = 'none';
+    
+    // Scrolle zur Section
+    setTimeout(function() {
+        const element = document.getElementById(type === 'large' ? 'large-system' : 'small-system');
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+}
+
+// Schließe Dropdown, wenn man außerhalb klickt
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('pa-dropdown');
+    const navItem = event.target.closest('.nav-item');
+    if (!navItem && dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+    }
+});
+</script>
+
