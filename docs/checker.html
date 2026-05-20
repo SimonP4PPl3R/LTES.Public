@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liefergebiets-Checker | LT EventSolutions</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #090909;
+  color: #eef1f5;
+}
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+}
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #030303;
+  border-bottom: 1px solid rgba(255, 106, 0, 0.18);
+}
+.site-header a {
+  color: #f4f4f4;
+  text-decoration: none;
+  font-weight: 600;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #ff6a00;
+  color: #090909;
+  text-decoration: none;
+  font-weight: 700;
+}
+.hero {
+  padding: 36px 0 20px;
+  text-align: center;
+}
+.hero h1 {
+  margin: 0 0 14px;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+}
+.hero p {
+  margin: 0 auto;
+  max-width: 640px;
+  color: #c7c7c7;
+  line-height: 1.7;
+}
+.card {
+  background: rgba(18, 18, 18, 0.95);
+  border: 1px solid rgba(255, 106, 0, 0.18);
+  border-radius: 24px;
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.24);
+  padding: 30px;
+  margin-top: 24px;
+}
+.form-group {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.form-group label {
+  font-weight: 700;
+  color: #f4f4f4;
+}
+input {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f0f0f;
+  color: #fff;
+  font-size: 1rem;
+}
+input:focus {
+  outline: none;
+  border-color: #ff6a00;
+  box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.12);
+}
+button {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #ff6a00;
+  color: #090909;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+button:hover {
+  transform: translateY(-1px);
+}
+.status {
+  margin-top: 22px;
+  min-height: 62px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+.status.success {
+  background: rgba(35, 93, 51, 0.18);
+  border-color: rgba(64, 176, 45, 0.3);
+  color: #bdf5b6;
+}
+.status.error {
+  background: rgba(175, 58, 58, 0.18);
+  border-color: rgba(255, 90, 90, 0.3);
+  color: #ffb8b8;
+}
+.status.neutral {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #d8d8d8;
+}
+.note {
+  margin-top: 12px;
+  color: #b8b8b8;
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+.footer {
+  margin-top: 42px;
+  text-align: center;
+  color: #9d9d9d;
+  font-size: 0.95rem;
+}
+.footer a {
+  color: #d8d8d8;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.footer a:hover {
+  color: #fff;
+}
+@media (max-width: 680px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="index.html">← Zurück zur Startseite</a>
+  <a href="kontakt.html" class="button">Jetzt anfragen</a>
+</header>
+<main class="container">
+  <section class="hero">
+    <h1>Liefergebiets-Checker</h1>
+    <p>Prüfe, ob Lieferung im Umkreis von 100 km um Regensburg möglich ist. Gib dafür eine Stadt oder PLZ ein.</p>
+  </section>
+  <section class="card">
+    <div class="form-group">
+      <label for="location-input">Stadt oder PLZ</label>
+      <input id="location-input" type="text" placeholder="z. B. Regensburg oder 93047" autocomplete="off">
+    </div>
+    <button id="check-button" type="button">Prüfen</button>
+    <div id="status-box" class="status neutral" aria-live="polite">Hier wird das Ergebnis angezeigt.</div>
+    <p class="note">Die Suche findet über Karte/Geocoding statt. Gib jede Gemeinde, jeden Ort oder jede PLZ ein.</p>
+  </section>
+</main>
+<script>
+const center = { lat: 49.0139, lon: 12.1016 };
+const radiusKm = 100;
+function distanceKm(a, b) {
+  const rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad;
+  const dLon = (b.lon - a.lon) * rad;
+  const lat1 = a.lat * rad;
+  const lat2 = b.lat * rad;
+  const sinHalfLat = Math.sin(dLat / 2);
+  const sinHalfLon = Math.sin(dLon / 2);
+  const c = 2 * Math.asin(Math.sqrt(sinHalfLat * sinHalfLat + Math.cos(lat1) * Math.cos(lat2) * sinHalfLon * sinHalfLon));
+  return 6371 * c;
+}
+function setStatus(message, type) {
+  const box = document.getElementById("status-box");
+  box.textContent = message;
+  box.className = "status " + type;
+}
+async function lookupLocation(query) {
+  const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=de&accept-language=de&q=" + encodeURIComponent(query);
+  try {
+    const response = await fetch(url, { headers: { "Referer": window.location.origin } });
+    if (!response.ok) throw new Error("Geocoding fehlgeschlagen");
+    const results = await response.json();
+    if (!results || !results.length) return null;
+    return {
+      lat: parseFloat(results[0].lat),
+      lon: parseFloat(results[0].lon),
+      label: results[0].display_name
+    };
+  } catch (error) {
+    return null;
+  }
+}
+const input = document.getElementById("location-input");
+const button = document.getElementById("check-button");
+button.addEventListener("click", async function () {
+  const value = input.value.trim();
+  if (!value) {
+    setStatus("Bitte Stadt oder PLZ eingeben.", "error");
+    return;
+  }
+  setStatus("Suche nach dem Ort...", "neutral");
+  const place = await lookupLocation(value);
+  if (!place) {
+    setStatus("Ort nicht gefunden. Bitte versuche einen anderen Ortsnamen oder eine PLZ.", "error");
+    return;
+  }
+  const dist = distanceKm(center, place);
+  if (dist <= radiusKm) {
+    setStatus("✔ Lieferung möglich in " + place.label + " (" + dist.toFixed(0) + " km)", "success");
+  } else {
+    setStatus("❌ Leider außerhalb unseres Liefergebiets (" + place.label + " – " + dist.toFixed(0) + " km)", "error");
+  }
+});
+input.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    button.click();
+  }
+});
+</script>
+</body>
+</html>
