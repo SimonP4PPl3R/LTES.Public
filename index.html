@@ -373,8 +373,8 @@ footer a:hover {
         <div class="nav-item">
             <a href="#" onclick="togglePADropdown(); return false;">PA-Anlagen ▼</a>
             <div id="pa-dropdown" class="dropdown-menu">
-                <a href="#" onclick="showPASystem('large'); return false;">High-End PA-Anlage für große Events</a>
-                <a href="#" onclick="showPASystem('small'); return false;">PA-Anlage für mittlere Events</a>
+                <a href="pa-large.html">High-End PA-Anlage für große Events</a>
+                <a href="pa-small.html">PA-Anlage für mittlere Events</a>
             </div>
         </div>
         <div class="nav-item">
@@ -430,42 +430,7 @@ footer a:hover {
     </div>
 </section>
 
-<!-- SECTION 2 -->
-<section class="section" id="large-system" style="display: none;">
-    <h2>High-End PA-Anlage für große Events</h2>
-    <p>Unser System für Festivals, Open-Airs und Club-Events mit hoher Besucherzahl.</p>
-    <div class="content-box" style="text-align: left; max-width: 800px; margin: 30px auto;">
-        <ul style="color: #ccc; line-height: 1.8;">
-            <li>2× HK VT 212 Nachbauten, 800W RMS pro Stück</li>
-            <li>2× Doppel-21" Paraflex Subwoofer, 4000W RMS pro Stück</li>
-            <li>4× 18" Hornbässe von Turbosound, 1500W RMS pro Stück</li>
-            <li>2× 18" Hornbässe für Kickbereich, 1000W RMS pro Stück</li>
-            <li>Professionelles Amping mit DSP</li>
-            <li>Modular erweiterbar für noch größere Events</li>
-            <li>Anschluss über DJ-Equipment / Mischpult oder Bluetooth</li>
-            <li>Auf- und Abbau inklusive</li>
-        </ul>
-        <p style="margin-top: 30px; color: #ff6a00; font-weight: bold;">Tagesmiete: 350€* | Wochenende: 600€*</p>
-    </div>
-</section>
-
-<section class="section" id="small-system" style="display: none;">
-    <h2>PA-Anlage für mittlere Events</h2>
-    <p>Perfekt für Partys, Hochzeiten, Vereinsfeste und kleinere Open-Airs.</p>
-    <div class="content-box" style="text-align: left; max-width: 800px; margin: 30px auto;">
-        <ul style="color: #ccc; line-height: 1.8;">
-            <li>2× Electrovoice SX300 (je 300W RMS)</li>
-            <li>2-4× Turbosound TSE 118 (je 1500W RMS)</li>
-            <li>2× höhenverstellbare Stative für Topteile</li>
-            <li>Rack mit Amping</li>
-            <li>Anschluss über DJ-/Mischpult oder Bluetooth</li>
-            <li>Auf- und Abbau inklusive</li>
-            <li>Optional: kleine oder große Traverse</li>
-            <li>Optional: Kombination mit Lichtsets</li>
-        </ul>
-        <p style="margin-top: 30px; color: #ff6a00; font-weight: bold;">Tagesmiete: ab 175€* | Wochenende: 250€*</p>
-    </div>
-</section>
+<!-- PA-Anlagen: Verlinkt auf eigene Seiten (pa-large.html / pa-small.html) -->
 
 <!-- FOOTER -->
 <footer>
@@ -490,21 +455,7 @@ footer a:hover {
         el.style.display = isOpen ? 'none' : 'block';
     };
 
-    window.togglePADropdown = function() {
-        toggleDropdown('pa-dropdown');
-    };
-
-    window.showPASystem = function(type) {
-        document.getElementById('large-system').style.display = 'none';
-        document.getElementById('small-system').style.display = 'none';
-        if (type === 'large') document.getElementById('large-system').style.display = 'block';
-        else if (type === 'small') document.getElementById('small-system').style.display = 'block';
-        closeAllDropdowns();
-        setTimeout(function() {
-            var element = document.getElementById(type === 'large' ? 'large-system' : 'small-system');
-            if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-    };
+    window.togglePADropdown = function() { toggleDropdown('pa-dropdown'); };
 
     // Klick außerhalb schließt alle Dropdowns
     document.addEventListener('click', function(e){
