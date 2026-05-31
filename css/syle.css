@@ -101,8 +101,8 @@ a {
 
 .hero h1 {
   margin: 0 0 18px;
-  font-size: clamp(2.8rem, 5vw, 4.4rem);
-  line-height: 1.04;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.2;
   letter-spacing: -0.045em;
 }
 
